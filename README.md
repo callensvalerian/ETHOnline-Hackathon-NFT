@@ -55,8 +55,12 @@ To start the project:
 - install openzeppelin contracts using npm install @openzeppelin/contracts
 - install chai: npm install chai
 - install chai-as-promised: npm install chai-as-promised
+- install for deploying contracts: npm install @truffle/hdwallet-provider and npm install dotenv
+
 - migrate contracts: truffle migrate --reset
 - test contracts: truffle test
+- if you want to deploy it to a testnet or mainnet, create a .env file in the project root directory, with the following line:
+  MNEMONIC="my twelve words"
 
 To test the front end:
 
@@ -69,3 +73,5 @@ To test the front end:
     run python -m SimpleHTTPServer
     then, run in your web-browser http://localhost:8000/
   - a proxy to send local events to moralis backend
+- to deploy the contract on a testnet:
+  truffle migrate --network xxx with xxx being a network added in truffle-config.js
