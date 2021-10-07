@@ -1,0 +1,41 @@
+{
+  "name": "membership_project",
+  "version": "0.1.0",
+  "description": "ETHOnline Hackathon",
+  "author": "callens.valerian@gmail.com",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.3.2",
+    "chai": "4.3.4",
+    "chai-as-promised": "7.1.1",
+    "chai-bignumber": "3.0.0",
+    "@truffle/hdwallet-provider": "1.5.0",
+    "truffle": "^5.4.11",
+    "truffle-flattener": "^1.4.2",
+    "web3": "^1.5.3"
+  },
+  "scripts": {},
+  "eslintConfig": {},
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/callensvalerian/ETHOnline-Hackathon-NFT.git"
+  },
+  "keywords": [
+    "blockchain"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/callensvalerian/ETHOnline-Hackathon-NFT/issues"
+  },
+  "homepage": "https://github.com/callensvalerian/ETHOnline-Hackathon-NFT#readme"
+}
