@@ -1,0 +1,14 @@
+{
+  "short_name": "Dapp Members",
+  "name": "Decentralized community membership management",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "theme_color": "#485357",
+  "description": "A decentralized application acting as a composable lego brick for on-chain community membership management. Crafted for the Hackathon ETHOnline 2021",
+  "skylink": "AQCydF7SgR6aoF8Z6Nf8yNqxLlbpdxP3QIEG9Lg3jD2H1w"
+}
