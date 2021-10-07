@@ -1,0 +1,25 @@
+.jumbotron{
+    background-color: #485357;
+    margin-bottom: 0px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+body,#right_panel,#left_panel{
+    background-color: #889da3;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+div,h1,h2,h3,p,span,button,td,tr,th{
+    text-align: center;
+    margin: auto;
+}
+
+.white_bold_text{
+    font-weight: bold;
+    color:white;
+}
+
+.white_text{
+    color:white;
+}

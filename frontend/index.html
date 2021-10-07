@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Dapp Members</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+    <script type="text/javascript" src="./membership_abi.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container-fluid">
+        <h1 class="display-4 white_bold_text">Dapp members</h1>
+        <br>
+        <p>
+          <span class="white_text">A decentralized application acting as a composable lego brick for on-chain</span>
+          <br>
+          <span class="white_text">community membership management. Crafted for the Hackathon ETHOnline 2021</span>
+        </p>
+        <br>
+      </div>
+      <div id="login_button_area" style="display: block;">
+        <button class="btn btn-success" id="login_button">Connect Wallet</button>
+      </div>
+      <div id="logout_button_area" style="display: none;">
+        <p>
+          <span class="white_bold_text">Wallet: </span>
+          <span class="white_bold_text" id="wallet_truncated"></span>
+          <button class="btn btn-danger" id="logout_button">Logout</button>
+        </p>
+      </div>
+
+    </div>
+    <div class="container-fluid">
+        
+        <div id="only_logged_in_area" style="display: none;">
+
+            <div class="row" >
+                
+                <div class="col" id="left_panel">
+                    <div class="row mt-3" >
+                        <button class="btn btn-primary" id="title_tab_my_memberships">My memberships</button>
+                    </div>
+                    <div class="row mt-3" >
+                        <button class="btn btn-primary" id="title_tab_my_organizations">My organizations</button>
+                    </div>
+                    <div class="row mt-3" >
+                        <button class="btn btn-primary" id="title_tab_new_organization">New organization</button>
+                    </div>
+                    <div class="row mt-3" >
+                        <button class="btn btn-primary" id="title_tab_check_wallet">Check wallet</button>
+                    </div>
+                    <div class="row mt-3" >
+                        <button class="btn btn-primary" id="title_tab_check_organization">Check Organization</button>
+                    </div>
+                    <div class="row mt-3" >
+                        <div class="col">
+                            <div class="row" ><h3>Platform metrics</h3></div>
+                            <div class="row" ><span id="orgaNb">-</span></div>
+                            <div class="row" ><p>organizations</p></div>
+                            <div class="row" ><span id="memberNb">-</span></div>
+                            <div class="row" ><p> members</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-8" id="right_panel">
+
+                    <div class="row" id="tab_my_memberships">
+                        <div class="col">
+                            <h3>My memberships</h3>
+                            <br>
+                            <table class="table table-dark" id="my_memberships">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">URL Logo</th>
+                                        <th scope="col">URL Certification</th>
+                                        <th scope="col">Membership Criteria</th>
+                                        <th scope="col">Revokation allowed?</th>
+                                        <th scope="col">Revokation Criteria</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row" id="tab_my_organizations">
+                        <div class="col">
+                            
+                            <div class="row" id="my_organizations_all">
+                                <div class="col">
+                                    <h3>My managed organizations</h3>
+                                    <br>
+                                    <table class="table table-dark" id="my_managed_organizations">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">URL Logo</th>
+                                                <th scope="col">URL Certification</th>
+                                                <th scope="col">Membership Criteria</th>
+                                                <th scope="col">Revokation allowed?</th>
+                                                <th scope="col">Revokation Criteria</th>
+                                                <th scope="col">Details</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row" id="my_organizations_details">
+                                <div class="col" id="my_organization_left_column">
+                                    <h3>Members</h3>
+                                    <br>
+                                    <p>
+                                        <label for="new_member_wallet">Wallet</label>
+                                        <input type="text" id="new_member_wallet">
+                                        <button class="btn btn-success" id="button_new_member">Add member</button>
+                                    </p>
+                                    <br>
+                                    <table class="table table-dark" id="members_of_my_organization">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Wallet</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                    </table> 
+                                </div>
+                                <div class="col" id="my_organization_right_column">
+                                    <h3>Edit Organization</h3>
+                                    <br>
+                                    <div class="row mt-3" >
+                                        <p><label for="orga_name_edit">Organization name</label></p>
+                                        <p><input type="text" id="orga_name_edit"></p>
+                                        <p><button class="btn btn-success" id="button_edit_name">Update</button></p>
+                                      </div>
+                                    <div class="row mt-3" >
+                                        <p><label for="orga_logo_uri_edit">Organization logo URL</label></p>
+                                        <p><input type="url" id="orga_logo_uri_edit"></p>
+                                        <p><button class="btn btn-success" id="button_edit_logo_uri">Update</button></p>
+                                    </div>
+                                    <div class="row mt-3" >
+                                        <p><label for="orga_certif_uri_edit">Organization certification URL</label></p>
+                                        <p><input type="url" id="orga_certif_uri_edit"></p>
+                                        <p><button class="btn btn-success" id="button_edit_certif_uri">Update</button></p>
+                                    </div>
+                                    <div class="row mt-3" >
+                                        <p><label for="orga_membership_criteria_edit">Membership policy: how members are accepted from the organization</label></p>
+                                        <p><input type="text" id="orga_membership_criteria_edit"></p>
+                                        <p><button class="btn btn-success" id="button_edit_membership_criteria">Update</button></p>
+                                    </div>
+                                    <div class="row mt-3" >
+                                        <p><label for="orga_revokation_criteria_edit">Revokation policy: how members can be revoked from the organization</label></p>
+                                        <p><input type="text" id="orga_revokation_criteria_edit"></p>
+                                        <p><button class="btn btn-success" id="button_edit_revokation_criteria">Update</button></p>
+                                    </div>
+                                </div>
+                                <br>
+                                <button class="btn btn-info" id="button_back_to_my_orgas">Back</button>                              
+                            </div>
+
+                        </div>
+                        
+                    </div>
+
+                    <div class="row" id="tab_new_organization">
+                        <div class="col">
+                            <h3>Create a new organization</h3>
+                            <br>
+
+                            <p>
+                                <label for="orga_name">Organization name</label>
+                                <input type="text" id="orga_name">
+                            </p>
+                            <p>
+                                <label for="orga_logo_uri">Organization logo URL</label>
+                                <input type="url" id="orga_logo_uri">
+                            </p>
+                            <p>
+                                <label for="orga_certif_uri">Organization certification URL</label>
+                                <input type="url" id="orga_certif_uri">
+                            </p>
+                            <p>
+                                <label for="orga_membership_criteria">Membership policy: how members are accepted from the organization</label>
+                                <input type="text" id="orga_membership_criteria">
+                            </p>
+                            <p>
+                                <label for="orga_revokation_criteria">Revokation policy: how members can be revoked from the organization</label>
+                                <input type="text" id="orga_revokation_criteria">
+                            </p>
+                            <p>
+                                <input type="checkbox" id="can_revoke">
+                                <label for="can_revoke">Allow member revokation</label>
+                            </p>
+
+                            <button class="btn btn-success" id="create_orga">Create orga</button>
+                          
+                        </div>
+                    </div>
+
+                    <div class="row" id="tab_check_wallet">
+                        <div class="col">
+                            <h3>Check memberships of a wallet</h3>
+                            <br>
+                            <p>
+                                <label for="checked_wallet">Address</label>
+                                <input type="text" id="checked_wallet">
+                            </p>
+                            <button class="btn btn-success" id="check_wallet">Search</button>
+                            <br>
+                            <br>
+
+                            <div id="check_wallet_after_button_click_only">
+                                <table class="table table-dark" id="checked_wallet_memberships">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">URL Logo</th>
+                                            <th scope="col">URL Certification</th>
+                                            <th scope="col">Membership Criteria</th>
+                                            <th scope="col">Revokation allowed?</th>
+                                            <th scope="col">Revokation Criteria</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="tab_check_organization">
+                        <div class="col">
+                            <h3>Check organization by id</h3>
+                            <br>
+                            <p>
+                                <label for="checked_orga_id">ID to check</label>
+                                <input type="number" id="checked_orga_id">
+                            </p>
+                            <button class="btn btn-success" id="check_orga_id">Search</button>
+                            <br>
+                            <br>
+
+                            <div id="check_orga_after_button_click_only">
+                                <table class="table table-dark" id="checked_organization">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">URL Logo</th>
+                                            <th scope="col">URL Certification</th>
+                                            <th scope="col">Membership Criteria</th>
+                                            <th scope="col">Revokation allowed?</th>
+                                            <th scope="col">Revokation Criteria</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <br>
+                                <h3>History of modifications</h3>
+                                <br>
+                                <table class="table table-dark" id="orga_modifications_history">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Item</th>
+                                            <th scope="col">Block</th>
+                                            <th scope="col">Old value</th>
+                                            <th scope="col">New value</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    
+
+    <script type="text/javascript" src="./main.js"></script>
+  </body>
+</html>
