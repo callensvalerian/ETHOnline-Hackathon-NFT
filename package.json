@@ -13,8 +13,6 @@
     "truffle-flattener": "^1.4.2",
     "web3": "^1.5.3"
   },
-  "scripts": {},
-  "eslintConfig": {},
   "browserslist": [
     ">0.2%",
     "not dead",
