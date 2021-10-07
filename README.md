@@ -77,3 +77,6 @@ To test the front end:
   - a proxy to send local events to moralis backend
 - to deploy the contract on a testnet:
   truffle migrate --network xxx with xxx being a network added in truffle-config.js
+- depending on which chain you want to deploy, comment or uncomment the adequate portion of code in:
+  - main.js: top of file + login function
+  - membership_abi.js: the contract address

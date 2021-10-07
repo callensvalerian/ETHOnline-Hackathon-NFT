@@ -1,12 +1,16 @@
 //const { default: Web3 } = require("web3");
 
+var web3;
+
 //BSC TESTNET
-//Moralis.initialize("zbQOiLXRh88PoTMZvCj31vNAWpJIkM3Bx7xgVuU7"); // Application id from moralis.io
-//Moralis.serverURL = "https://ip8a8osbglxz.moralishost.com:2053/server"; //Server url from moralis.io
+Moralis.initialize("zbQOiLXRh88PoTMZvCj31vNAWpJIkM3Bx7xgVuU7"); // Application id from moralis.io
+Moralis.serverURL = "https://ip8a8osbglxz.moralishost.com:2053/server"; //Server url from moralis.io
+const NODE_URL =
+  "https://speedy-nodes-nyc.moralis.io/420b0a2a7bd27af6f53b51e4/bsc/testnet";
 
 //LOCAL GANACHE
-Moralis.initialize("R05hhKuxNxq0qDmNLsu3PDkhZgxbkzpfQCF3BWMV"); // Application id from moralis.io
-Moralis.serverURL = "https://nnalc8p0wdxf.moralishost.com:2053/server"; //Server url from moralis.io
+//Moralis.initialize("R05hhKuxNxq0qDmNLsu3PDkhZgxbkzpfQCF3BWMV"); // Application id from moralis.io
+//Moralis.serverURL = "https://nnalc8p0wdxf.moralishost.com:2053/server"; //Server url from moralis.io
 
 var currentUser;
 var currentSelectedOrgaId = 0;
@@ -17,6 +21,10 @@ async function login() {
     if (!currentUser) {
       currentUser = await Moralis.Web3.authenticate();
     }
+    //BSC TESTNET:
+    web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL));
+    //LOCAL GANACHE
+    //web3 = await Moralis.Web3.enable();
     display_data_based_on_logged_status();
     //By default, display tab_my_memberships
     change_active_tab("tab_my_memberships");
@@ -47,7 +55,7 @@ async function display_data_based_on_logged_status() {
 
 //Function refreshing: only logged/not logged areas
 async function refresh_platform_statistics() {
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address
@@ -73,7 +81,7 @@ async function create_orga() {
     "orga_revokation_criteria"
   ).value;
   let can_revoke = document.getElementById("can_revoke").checked;
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address
@@ -148,7 +156,7 @@ async function change_active_tab(selected_tab) {
     //1- empty table
     removeRowsFromTable("my_memberships");
     //2- fill table
-    window.web3 = await Moralis.Web3.enable();
+    //window.web3 = await Moralis.Web3.enable();
     let contractInstance = new web3.eth.Contract(
       window.membership_abi,
       window.membership_address
@@ -180,7 +188,7 @@ async function change_active_tab(selected_tab) {
     //1- empty table
     removeRowsFromTable("my_managed_organizations");
     //2- fill table
-    window.web3 = await Moralis.Web3.enable();
+    //window.web3 = await Moralis.Web3.enable();
     let contractInstance = new web3.eth.Contract(
       window.membership_abi,
       window.membership_address
@@ -357,7 +365,7 @@ async function display_my_organizations_details(orgaId) {
 }
 
 async function revoke_member(orgaId, member_address) {
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address
@@ -381,7 +389,7 @@ async function check_wallet() {
   let checked_wallet = document.getElementById("checked_wallet").value;
 
   //2- fill table
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address
@@ -411,7 +419,7 @@ async function check_wallet() {
 
 async function add_member() {
   let newMemberWallet = document.getElementById("new_member_wallet").value;
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address
@@ -431,7 +439,7 @@ async function check_organization() {
   removeRowsFromTable("orga_modifications_history");
   let checked_orga_id = document.getElementById("checked_orga_id").value;
 
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address
@@ -480,7 +488,7 @@ function showElementById(elementId) {
 
 async function edit_orga_name() {
   let newValue = document.getElementById("orga_name_edit").value;
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address
@@ -495,7 +503,7 @@ async function edit_orga_name() {
 
 async function edit_orga_logo_uri() {
   let newValue = document.getElementById("orga_logo_uri_edit").value;
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address
@@ -510,7 +518,7 @@ async function edit_orga_logo_uri() {
 
 async function edit_orga_certif_uri() {
   let newValue = document.getElementById("orga_certif_uri_edit").value;
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address
@@ -525,7 +533,7 @@ async function edit_orga_certif_uri() {
 
 async function edit_orga_membership_criteria() {
   let newValue = document.getElementById("orga_membership_criteria_edit").value;
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address
@@ -540,7 +548,7 @@ async function edit_orga_membership_criteria() {
 
 async function edit_orga_revokation_criteria() {
   let newValue = document.getElementById("orga_revokation_criteria_edit").value;
-  window.web3 = await Moralis.Web3.enable();
+  //window.web3 = await Moralis.Web3.enable();
   let contractInstance = new web3.eth.Contract(
     window.membership_abi,
     window.membership_address

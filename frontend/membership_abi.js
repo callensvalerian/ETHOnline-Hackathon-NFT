@@ -1,7 +1,7 @@
 //BSC testnet membership contract
-//window.membership_address = "0xbB1c8D046d3c3674E0E1e45b907261aD891f115e";
+window.membership_address = "0xbB1c8D046d3c3674E0E1e45b907261aD891f115e";
 //Local ganache membership contract
-window.membership_address = "0x4C23FBa7306120368c34F4b3d5ed45E1759837D5";
+//window.membership_address = "0x4C23FBa7306120368c34F4b3d5ed45E1759837D5";
 
 window.membership_abi = [
   {
