@@ -62,8 +62,10 @@ To test the front end:
 
 - Deploy the contract membership.sol, on ganache for example
 - Get the abi and the deployed contract address, add it to frontend/membership_abi.js
-- if run locally, you will need a local HTTP server. As described here:
-  https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server
-  go with console inside the folder "frontend"
-  run python -m SimpleHTTPServer
-  then, run in your web-browser http://localhost:8000/
+- if run locally, you will need:
+  - a local HTTP server. As described here:
+    https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server
+    go with console inside the folder "frontend"
+    run python -m SimpleHTTPServer
+    then, run in your web-browser http://localhost:8000/
+  - a proxy to send local events to moralis backend
